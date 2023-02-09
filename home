@@ -1,0 +1,63 @@
+class Terminal:
+    def _check_card(self, card):
+        if len(card) ==16 and card.isdigit():
+            return True
+        else:
+            print('Invalid card number')
+    def _check_pin(self, pin):
+        if len(pin) == 4 and pin.isdigit():
+            return True
+        else:
+            print('Invalid pin code')
+
+    def __init__(self, card, pin):
+        if self._check_card(card=card) and self._check_pin(pin=pin):
+            self.__card = card
+            self.__pin = pin
+            self.money = 0
+        else:
+            print('Your card is not initialized')
+    
+    def _validation(self, pin):
+        if self.__pin == pin:
+            return True
+        else:
+            return False
+    def put(self, pin, money):
+        if self._validation(pin=pin):
+            self.money += money
+            print(f'There is {self.money} on your balace')
+        else:
+            print(f'Not correct pin code')
+
+    def _check_money(self, money):
+        if money %10 == 0:
+            return True
+        else:
+            print('Invalid amount of money')
+            return False
+    def _check_balance(self, money):
+        if self.money < money:
+            print('Not enough money on your balance')
+            return False
+        else:
+            return True
+    def get_money(self, pin, money):
+        if self._validation(pin=pin):
+            if self._check_money(money=money) and self._check_balance(money=money):
+                self.money -= money
+                print(f'There is {self.money} on your balance')
+        else:
+            print('Not correct pin code')
+
+
+card = Terminal (card= '1234567812345678', pin = '9999')
+card.put(pin ='9999', money = 1000)
+card.get_money(pin = '9999', money = 900)
+card.put(pin = '3214', money = 100)
+print (card.money)
+
+card2 = Terminal (card= '9876549876546542', pin = '2121')
+card2.put(pin ='2121', money = 1000)
+card2.get_money(pin = '1234', money = 900)
+print(card2.money)
